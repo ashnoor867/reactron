@@ -1,13 +1,14 @@
+// Load environment variables and define API URLs
 const API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const GEO_API_URL = 'https://api.openweathermap.org/geo/1.0/direct';
-console.log('Weather App initialized');
-console.log('API Key available:', !!API_KEY);
 
-// DOM Elements
+// DOM Elements - Input and Buttons
 const cityInput = document.getElementById('city');
 const searchBtn = document.getElementById('search');
 const locationBtn = document.getElementById('location');
+
+// DOM Elements - Weather Display
 const cityDisplay = document.getElementById('city-display');
 const tempElement = document.getElementById('temp');
 const feelsElement = document.getElementById('feels');
@@ -23,26 +24,23 @@ const weatherIcon = document.getElementById('icon');
 const darkBtn = document.getElementById('darkBtn');
 const weatherBox = document.getElementById('weather-box');
 const cityList = document.getElementById('city-list');
-console.log('DOM elements loaded');
 
-// Theme Management
+// Theme Management - Load theme from localStorage
 const currentTheme = localStorage.getItem('theme') || 'light';
 document.body.className = `${currentTheme}-theme`;
-console.log('Theme set to:', currentTheme);
 
-// Event Listeners
+// Event Listeners - Search button click
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
-    console.log('Search button clicked for city:', city);
     if (city) {
         getWeatherByCity(city);
         cityInput.blur();
     } else {
-        console.warn('No city entered');
         showToast('Please enter a city name');
     }
 });
 
+// Event Listeners - City input keypress (Enter)
 cityInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         const city = cityInput.value.trim();
@@ -55,9 +53,9 @@ cityInput.addEventListener('keypress', (e) => {
     }
 });
 
+// Event Listeners - City input for suggestions
 cityInput.addEventListener('input', debounce(function() {
     const query = this.value.trim();
-    console.log('Input detected:', query);
     if (query.length >= 3) {
         fetchCitySuggestions(query);
     } else {
@@ -66,19 +64,16 @@ cityInput.addEventListener('input', debounce(function() {
     }
 }, 300));
 
+// Event Listeners - Location button click
 locationBtn.addEventListener('click', () => {
-    console.log('Location button clicked');
     showLoading();
     if (navigator.geolocation) {
-        console.log('Requesting geolocation...');
         navigator.geolocation.getCurrentPosition(
             position => {
-                console.log('Geolocation received:', position.coords.latitude, position.coords.longitude);
                 getWeatherByCoords(position.coords.latitude, position.coords.longitude);
             },
             error => {
                 console.error('Geolocation error:', error);
-                console.log('Falling back to IP-based geolocation');
                 getLocationByIP();
             }
         );
@@ -88,23 +83,23 @@ locationBtn.addEventListener('click', () => {
     }
 });
 
+// Event Listeners - Dark theme button click
 darkBtn.addEventListener('click', () => {
     const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     
     document.body.className = `${newTheme}-theme`;
     localStorage.setItem('theme', newTheme);
-    console.log(`Theme switched to ${newTheme} mode`);
 });
 
-// Close suggestions when clicking outside
+// Event Listeners - Close suggestions when clicking outside
 document.addEventListener('click', (e) => {
     if (!cityInput.contains(e.target) && !cityList.contains(e.target)) {
         cityList.classList.add('hide');
     }
 });
 
-// Utility Functions
+// Utility Functions - Debounce function
 function debounce(func, delay) {
     let timer;
     return function() {
@@ -115,6 +110,7 @@ function debounce(func, delay) {
     };
 }
 
+// Utility Functions - Show loading state
 function showLoading() {
     searchBtn.disabled = true;
     locationBtn.disabled = true;
@@ -122,6 +118,7 @@ function showLoading() {
     cityInput.disabled = true;
 }
 
+// Utility Functions - Hide loading state
 function hideLoading() {
     searchBtn.disabled = false;
     locationBtn.disabled = false;
@@ -129,6 +126,7 @@ function hideLoading() {
     cityInput.disabled = false;
 }
 
+// Utility Functions - Format time from timestamp
 function formatTime(timestamp) {
     const date = new Date(timestamp * 1000);
     let hours = date.getHours();
@@ -142,6 +140,7 @@ function formatTime(timestamp) {
     return `${hours}:${minutes} ${ampm}`;
 }
 
+// Utility Functions - Show toast message
 function showToast(message) {
     const toast = document.createElement('div');
     toast.textContent = message;
@@ -171,17 +170,17 @@ function showToast(message) {
     }, 100);
 }
 
+// Utility Functions - Get wind direction from degrees
 function getWindDirection(degrees) {
     const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     const index = Math.round(degrees / 22.5) % 16;
     return directions[index];
 }
 
-// API Functions
+// API Functions - Fetch city suggestions
 async function fetchCitySuggestions(query) {
     try {
         const url = `${GEO_API_URL}?q=${query}&limit=5&appid=${API_KEY}`;
-        console.log('Fetching city suggestions for:', query);
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -201,6 +200,7 @@ async function fetchCitySuggestions(query) {
     }
 }
 
+// API Functions - Display city suggestions
 function displaySuggestions(cities) {
     cityList.innerHTML = '';
     
@@ -221,12 +221,11 @@ function displaySuggestions(cities) {
     cityList.classList.remove('hide');
 }
 
+// API Functions - Get weather by city name
 async function getWeatherByCity(city) {
-    console.log(`Fetching weather for city: ${city}`);
     showLoading();
     try {
         const url = `${API_BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`;
-        console.log('API request URL:', url.replace(API_KEY, 'API_KEY_HIDDEN'));
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -235,7 +234,6 @@ async function getWeatherByCity(city) {
         }
         
         const data = await response.json();
-        console.log('Weather data received:', data);
         updateWeatherUI(data);
     } catch (error) {
         console.error('Error fetching weather by city:', error);
@@ -245,12 +243,11 @@ async function getWeatherByCity(city) {
     }
 }
 
+// API Functions - Get weather by coordinates
 async function getWeatherByCoords(lat, lon) {
-    console.log(`Fetching weather for coordinates: ${lat}, ${lon}`);
     showLoading();
     try {
         const url = `${API_BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-        console.log('API request URL:', url.replace(API_KEY, 'API_KEY_HIDDEN'));
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -259,7 +256,6 @@ async function getWeatherByCoords(lat, lon) {
         }
         
         const data = await response.json();
-        console.log('Weather data received:', data);
         updateWeatherUI(data);
     } catch (error) {
         console.error('Error fetching weather by coordinates:', error);
@@ -269,16 +265,14 @@ async function getWeatherByCoords(lat, lon) {
     }
 }
 
+// API Functions - Get location by IP address
 async function getLocationByIP() {
     try {
-        console.log('Fetching location by IP address');
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
-        console.log('IP geolocation data:', data);
         if (data.latitude && data.longitude) {
             getWeatherByCoords(data.latitude, data.longitude);
         } else {
-            console.error('IP geolocation failed to return coordinates');
             showToast('Failed to detect your location');
             hideLoading();
         }
@@ -289,9 +283,8 @@ async function getLocationByIP() {
     }
 }
 
+// UI Functions - Update weather UI
 function updateWeatherUI(data) {
-    console.log('Updating UI with weather data');
-    
     // Update location
     cityDisplay.textContent = `${data.name}, ${data.sys.country}`;
     
@@ -328,13 +321,11 @@ function updateWeatherUI(data) {
     weatherBox.offsetHeight; // Trigger reflow
     weatherBox.style.animation = null;
     
-    console.log('UI updated successfully');
-    hideLoading();
-    
     // Change background based on weather condition
     setBackgroundByWeatherCondition(data.weather[0].id);
 }
 
+// UI Functions - Set background by weather condition
 function setBackgroundByWeatherCondition(weatherId) {
     // Remove any existing background classes
     const possibleBackgrounds = [
@@ -362,20 +353,17 @@ function setBackgroundByWeatherCondition(weatherId) {
     }
 }
 
-// Initialize the app - try to get user location
+// Initialize the app - try to get user location on DOM load
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded, attempting initial geolocation');
     showLoading();
     
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             position => {
-                console.log('Initial geolocation received');
                 getWeatherByCoords(position.coords.latitude, position.coords.longitude);
             },
             error => {
                 console.error('Initial geolocation error:', error);
-                console.log('Falling back to IP-based geolocation');
                 getLocationByIP();
             },
             { timeout: 5000 } // Set a 5-second timeout for geolocation

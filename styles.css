@@ -1,30 +1,37 @@
+/* Root variables for light and dark themes */
 :root {
-    --light-bg: #f5f7fa;
-    --light-card-bg: #ffffff;
-    --light-text: #333333;
-    --light-border: #e1e4e8;
-    --light-highlight: #4a90e2;
-    --light-secondary: #f0f2f5;
+    /* Light theme colors */
+    --light-bg: #f5f7fa; /* Light background color */
+    --light-card-bg: #ffffff; /* Light card background color */
+    --light-text: #333333; /* Light text color */
+    --light-border: #e1e4e8; /* Light border color */
+    --light-highlight: #4a90e2; /* Light highlight color */
+    --light-secondary: #f0f2f5; /* Light secondary color */
     
-    --dark-bg: #121212;
-    --dark-card-bg: #1e1e1e;
-    --dark-text: #f5f5f5;
-    --dark-border: #2c2c2c;
-    --dark-highlight: #64b5f6;
-    --dark-secondary: #272727;
+    /* Dark theme colors */
+    --dark-bg: #121212; /* Dark background color */
+    --dark-card-bg: #1e1e1e; /* Dark card background color */
+    --dark-text: #f5f5f5; /* Dark text color */
+    --dark-border: #2c2c2c; /* Dark border color */
+    --dark-highlight: #64b5f6; /* Dark highlight color */
+    --dark-secondary: #272727; /* Dark secondary color */
     
-    --shadow-light: 0 8px 30px rgba(0, 0, 0, 0.12);
-    --shadow-dark: 0 8px 30px rgba(0, 0, 0, 0.3);
+    /* Shadows for light and dark themes */
+    --shadow-light: 0 8px 30px rgba(0, 0, 0, 0.12); /* Light shadow */
+    --shadow-dark: 0 8px 30px rgba(0, 0, 0, 0.3); /* Dark shadow */
     
+    /* Transition speed for smooth effects */
     --transition-speed: 0.3s;
 }
 
+/* Resetting default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body styles */
 body {
     font-family: 'Poppins', sans-serif;
     transition: background-color var(--transition-speed), color var(--transition-speed);
@@ -35,16 +42,19 @@ body {
     align-items: center;
 }
 
+/* Light theme styles */
 .light-theme {
     background-color: var(--light-bg);
     color: var(--light-text);
 }
 
+/* Dark theme styles */
 .dark-theme {
     background-color: var(--dark-bg);
     color: var(--dark-text);
 }
 
+/* Main container styles */
 .main {
     width: 100%;
     max-width: 500px;
@@ -52,12 +62,14 @@ body {
     position: relative;
 }
 
+/* Theme button styles */
 .theme-btn {
     position: absolute;
     top: 0;
     right: 0;
 }
 
+/* Dark theme button styles */
 #darkBtn {
     background: none;
     border: none;
@@ -73,30 +85,37 @@ body {
     transition: background-color var(--transition-speed);
 }
 
+/* Light theme dark button styles */
 .light-theme #darkBtn {
     background-color: var(--light-secondary);
 }
 
+/* Dark theme dark button styles */
 .dark-theme #darkBtn {
     background-color: var(--dark-secondary);
 }
 
+/* Light theme moon icon styles */
 .light-theme #moon {
     display: block;
 }
 
+/* Light theme sun icon styles */
 .light-theme #sun {
     display: none;
 }
 
+/* Dark theme moon icon styles */
 .dark-theme #moon {
     display: none;
 }
 
+/* Dark theme sun icon styles */
 .dark-theme #sun {
     display: block;
 }
 
+/* Heading styles */
 h1 {
     text-align: center;
     margin-bottom: 30px;
@@ -104,12 +123,14 @@ h1 {
     font-size: 2rem;
 }
 
+/* Search box styles */
 .search-box {
     position: relative;
     margin-bottom: 30px;
     width: 100%;
 }
 
+/* City input styles */
 #city {
     width: 100%;
     padding: 15px;
@@ -120,26 +141,31 @@ h1 {
     transition: all var(--transition-speed);
 }
 
+/* Light theme city input styles */
 .light-theme #city {
     border-color: var(--light-border);
     background-color: var(--light-card-bg);
     color: var(--light-text);
 }
 
+/* Dark theme city input styles */
 .dark-theme #city {
     border-color: var(--dark-border);
     background-color: var(--dark-card-bg);
     color: var(--dark-text);
 }
 
+/* City input focus styles */
 #city:focus {
     border-color: var(--light-highlight);
 }
 
+/* Dark theme city input focus styles */
 .dark-theme #city:focus {
     border-color: var(--dark-highlight);
 }
 
+/* City list styles */
 .city-list {
     position: absolute;
     width: 100%;
@@ -152,37 +178,44 @@ h1 {
     transition: all var(--transition-speed);
 }
 
+/* Light theme city list styles */
 .light-theme .city-list {
     background-color: var(--light-card-bg);
     border: 1px solid var(--light-border);
 }
 
+/* Dark theme city list styles */
 .dark-theme .city-list {
     background-color: var(--dark-card-bg);
     border: 1px solid var(--dark-border);
     box-shadow: var(--shadow-dark);
 }
 
+/* Suggestion item styles */
 .suggestion-item {
     padding: 12px 15px;
     cursor: pointer;
     transition: background-color var(--transition-speed);
 }
 
+/* Light theme suggestion item hover styles */
 .light-theme .suggestion-item:hover {
     background-color: var(--light-secondary);
 }
 
+/* Dark theme suggestion item hover styles */
 .dark-theme .suggestion-item:hover {
     background-color: var(--dark-secondary);
 }
 
+/* Button box styles */
 .btn-box {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
+/* Button styles */
 button {
     padding: 12px 15px;
     font-size: 16px;
@@ -194,25 +227,30 @@ button {
     transition: all var(--transition-speed);
 }
 
+/* Light theme button styles */
 .light-theme button {
     background-color: var(--light-highlight);
     color: white;
 }
 
+/* Dark theme button styles */
 .dark-theme button {
     background-color: var(--dark-highlight);
     color: #121212;
 }
 
+/* Button hover styles */
 button:hover {
     opacity: 0.9;
     transform: translateY(-2px);
 }
 
+/* Button active styles */
 button:active {
     transform: translateY(0);
 }
 
+/* Weather box styles */
 .weather-box {
     border-radius: 15px;
     padding: 25px;
@@ -222,17 +260,20 @@ button:active {
     animation: fadeIn 0.5s ease;
 }
 
+/* Light theme weather box styles */
 .light-theme .weather-box {
     background-color: var(--light-card-bg);
     border: 1px solid var(--light-border);
 }
 
+/* Dark theme weather box styles */
 .dark-theme .weather-box {
     background-color: var(--dark-card-bg);
     border: 1px solid var(--dark-border);
     box-shadow: var(--shadow-dark);
 }
 
+/* City name styles */
 .city-name {
     border-bottom: 1px solid;
     padding-bottom: 15px;
@@ -240,20 +281,24 @@ button:active {
     transition: border-color var(--transition-speed);
 }
 
+/* Light theme city name styles */
 .light-theme .city-name {
     border-color: var(--light-border);
 }
 
+/* Dark theme city name styles */
 .dark-theme .city-name {
     border-color: var(--dark-border);
 }
 
+/* Heading 2 styles */
 h2 {
     font-weight: 500;
     font-size: 1.8rem;
     text-align: center;
 }
 
+/* Weather info styles */
 .weather-info {
     display: flex;
     justify-content: space-between;
@@ -261,36 +306,43 @@ h2 {
     margin-bottom: 25px;
 }
 
+/* Temperature box styles */
 .temp-box {
     flex: 1;
 }
 
+/* Temperature styles */
 .temp {
     font-size: 3rem;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
+/* Feels like and minmax styles */
 .feels, .minmax {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 3px;
 }
 
+/* Dark theme feels like and minmax styles */
 .dark-theme .feels, .dark-theme .minmax {
     color: #aaa;
 }
 
+/* Icon box styles */
 .icon-box {
     text-align: center;
     flex: 1;
 }
 
+/* Description styles */
 .desc {
     text-transform: capitalize;
     margin-top: -10px;
 }
 
+/* Details styles */
 .details {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -301,14 +353,17 @@ h2 {
     transition: border-color var(--transition-speed);
 }
 
+/* Light theme details styles */
 .light-theme .details {
     border-color: var(--light-border);
 }
 
+/* Dark theme details styles */
 .dark-theme .details {
     border-color: var(--dark-border);
 }
 
+/* Info styles */
 .info {
     padding: 10px;
     border-radius: 8px;
@@ -316,18 +371,22 @@ h2 {
     transition: background-color var(--transition-speed);
 }
 
+/* Light theme info styles */
 .light-theme .info {
     background-color: var(--light-secondary);
 }
 
+/* Dark theme info styles */
 .dark-theme .info {
     background-color: var(--dark-secondary);
 }
 
+/* Hide styles */
 .hide {
     display: none;
 }
 
+/* Fade in animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -339,6 +398,7 @@ h2 {
     }
 }
 
+/* Media query for responsive design */
 @media (max-width: 500px) {
     .weather-info {
         flex-direction: column;
