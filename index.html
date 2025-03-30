@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main">
+        <div class="theme-btn">
+            <button id="darkBtn">
+                <span id="sun">🌞</span>
+                <span id="moon">🌙</span>
+            </button>
+        </div>
+        
+        <h1>Weather App</h1>
+        
+        <div class="search-box">
+            <input type="text" id="city" placeholder="Enter city name">
+            <div id="city-list" class="city-list hide"></div>
+            <div class="btn-box">
+                <button id="search">Search</button>
+                <button id="location">Use My Location</button>
+            </div>
+        </div>
+        
+        <div id="weather-box" class="weather-box hide">
+            <div class="city-name">
+                <h2 id="city-display">Loading...</h2>
+            </div>
+            
+            <div class="weather-info">
+                <div class="temp-box">
+                    <div id="temp" class="temp">--°C</div>
+                    <div id="feels" class="feels">Feels like: --°C</div>
+                    <div id="minmax" class="minmax">Min: --°C / Max: --°C</div>
+                </div>
+                
+                <div class="icon-box">
+                    <img id="icon" src="" alt="Weather Icon">
+                    <div id="desc" class="desc">--</div>
+                </div>
+            </div>
+            
+            <div class="details">
+                <div class="info" id="humid">Humidity: --%</div>
+                <div class="info" id="wind">Wind: -- m/s</div>
+                <div class="info" id="direction">Direction: --°</div>
+                <div class="info" id="pressure">Pressure: -- hPa</div>
+                <div class="info" id="visible">Visibility: -- km</div>
+                <div class="info" id="sun-time">Sunrise: -- / Sunset: --</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="renderer.js"></script>
+</body>
+</html>
