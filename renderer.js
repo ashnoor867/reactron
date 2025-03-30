@@ -356,7 +356,7 @@ function setBackgroundByWeatherCondition(weatherId) {
     } else if (weatherId >= 700 && weatherId < 800) {
         document.body.classList.add('atmosphere-bg');
     } else if (weatherId === 800) {
-        document.body.classList.add('clear-bg');/
+        document.body.classList.add('clear-bg');
     } else if (weatherId > 800) {
         document.body.classList.add('clouds-bg');
     }
