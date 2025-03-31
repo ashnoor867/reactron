@@ -36,7 +36,7 @@ npm start
 - OpenWeatherMap API
 
 ## Application build link
-https://drive.google.com/drive/folders/1PyeZlydh566Khr_FMQoqikciTYtWOfUm?usp=drive_link
+https://drive.google.com/drive/folders/1Jgpv_rT9wrSTfE_03jyg2f_YBt4Q7c7E?usp=sharing
 
 ## Note
 You'll need a free API key from [OpenWeatherMap](https://openweathermap.org/api) to run this application.
